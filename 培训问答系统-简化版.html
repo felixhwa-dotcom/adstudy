@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B站商业化培训 - 简化版</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .header {
+            background: linear-gradient(135deg, #00A1D6 0%, #FB7299 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .header p { opacity: 0.9; }
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+        .courses, .qa-section {
+            background: #f7f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            color: #00A1D6;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #00A1D6;
+        }
+        .course-item {
+            background: white;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            border-radius: 8px;
+            border-left: 4px solid #00A1D6;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .course-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .course-item h3 { font-size: 1rem; color: #333; margin-bottom: 0.3rem; }
+        .course-item p { font-size: 0.85rem; color: #666; }
+        .course-meta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #999;
+        }
+        .qa-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e3e5e7;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+            margin-bottom: 1rem;
+        }
+        .qa-input:focus {
+            outline: none;
+            border-color: #00A1D6;
+        }
+        .qa-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: #00A1D6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .qa-btn:hover { background: #0084B4; }
+        .qa-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .qa-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #52C41A;
+            display: none;
+        }
+        .qa-result.show { display: block; }
+        .qa-question {
+            font-weight: 600;
+            color: #00A1D6;
+            margin-bottom: 0.5rem;
+        }
+        .qa-answer {
+            color: #666;
+            line-height: 1.8;
+        }
+        .qa-answer strong { color: #333; }
+        .quick-questions {
+            margin-top: 1rem;
+        }
+        .quick-q {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 1px solid #e3e5e7;
+            border-radius: 20px;
+            margin: 0.3rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .quick-q:hover {
+            background: #00A1D6;
+            color: white;
+            border-color: #00A1D6;
+        }
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 B站商业化企业培训体系</h1>
+            <p>11门课程 · 60学时 · 3级能力认证</p>
+        </div>
+        
+        <div class="content">
+            <!-- 左侧：课程列表 -->
+            <div class="courses">
+                <div class="section-title">📚 培训课程体系</div>
+                
+                <div class="course-item" onclick="showCourse('c1-1')">
+                    <h3>1. B站商业化生态认知</h3>
+                    <p>理解B站用户画像、内容生态、商业化模式</p>
+                    <div class="course-meta">
+                        <span>⏱️ 4小时</span>
+                        <span>📝 课堂测验</span>
+                    </div>
+                </div>
+                
+                <div class="course-item" onclick="showCourse('c1-2')">
+                    <h3>2. 三连竞价推广基础入门</h3>
+                    <p>掌握三连平台基本操作流程，了解竞价机制</p>
+                    <div class="course-meta">
+                        <span>⏱️ 6小时</span>
+                        <span>📝 实操任务</span>
+                    </div>
+                </div>
+                
+                <div class="course-item" onclick="showCourse('c1-3')">
+                    <h3>3. 花火平台基础入门</h3>
+                    <p>熟悉花火平台功能，了解内容合作基本流程</p>
+                    <div class="course-meta">
+                        <span>⏱️ 6小时</span>
+                        <span>📝 需求单评分</span>
+                    </div>
+                </div>
+                
+                <div class="course-item" onclick="showCourse('c1-4')">
+                    <h3>4. 广告法合规与内容规范</h3>
+                    <p>掌握B站广告内容规范，避免违规风险</p>
+                    <div class="course-meta">
+                        <span>⏱️ 4小时</span>
+                        <span>📝 案例分析</span>
+                    </div>
+                </div>
+                
+                <div class="course-item" onclick="showCourse('c2-1')">
+                    <h3>5. 三连竞价投放策略与优化</h3>
+                    <p>掌握投放策略制定、关键词优化、效果提升方法</p>
+                    <div class="course-meta">
+                        <span>⏱️ 8小时</span>
+                        <span>📝 方案设计</span>
+                    </div>
+                </div>
+                
+                <div class="course-item" onclick="showCourse('c2-2')">
+                    <h3>6. 花火平台深度运营</h3>
+                    <p>掌握花火平台高级功能，提升合作效率</p>
+                    <div class="course-meta">
+                        <span>⏱️ 6小时</span>
+                        <span>📝 复盘报告</span>
+                    </div>
+                </div>
+                
+                <div class="course-item" onclick="showCourse('c2-3')">
+                    <h3>7. 数据驱动营销分析</h3>
+                    <p>建立数据分析思维，掌握核心指标解读</p>
+                    <div class="course-meta">
+                        <span>⏱️ 6小时</span>
+                        <span>📝 周报制作</span>
+                    </div>
+                </div>
+                
+                <div class="course-item" onclick="showCourse('c2-4')">
+                    <h3>8. 投放案例拆解与复盘</h3>
+                    <p>通过真实案例学习投放思路与优化方法</p>
+                    <div class="course-meta">
+                        <span>⏱️ 4小时</span>
+                        <span>📝 小组汇报</span>
+                    </div>
+                </div>
+                
+                <div class="course-item" onclick="showCourse('c3-1')">
+                    <h3>9. 整合营销策略制定</h3>
+                    <p>能够独立制定整合营销方案，统筹多产品协同</p>
+                    <div class="course-meta">
+                        <span>⏱️ 8小时</span>
+                        <span>📝 方案答辩</span>
+                    </div>
+                </div>
+                
+                <div class="course-item" onclick="showCourse('c3-2')">
+                    <h3>10. 团队管理与协作机制</h3>
+                    <p>掌握团队协作流程，建立高效工作模式</p>
+                    <div class="course-meta">
+                        <span>⏱️ 4小时</span>
+                        <span>📝 手册输出</span>
+                    </div>
+                </div>
+                
+                <div class="course-item" onclick="showCourse('c3-3')">
+                    <h3>11. 行业前沿与趋势洞察</h3>
+                    <p>保持行业敏感度，把握市场趋势</p>
+                    <div class="course-meta">
+                        <span>⏱️ 4小时</span>
+                        <span>📝 分享会</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右侧：问答区 -->
+            <div class="qa-section">
+                <div class="section-title">💬 培训问答助手</div>
+                
+                <textarea 
+                    id="questionInput" 
+                    class="qa-input" 
+                    placeholder="输入您的问题，例如：&#10;• 三连平台的竞价模式是什么？&#10;• 如何优化广告投放效果？&#10;• 花火平台的合作流程有哪些？"
+                ></textarea>
+                
+                <button class="qa-btn" onclick="getAnswer()">获取答案</button>
+                
+                <div id="qaResult" class="qa-result">
+                    <div class="qa-question" id="qaQuestion"></div>
+                    <div class="qa-answer" id="qaAnswer"></div>
+                </div>
+                
+                <div class="quick-questions">
+                    <div class="section-title" style="margin-top: 1.5rem;">📌 常见问题</div>
+                    <div class="quick-q" onclick="quickQuestion(this)">三连平台竞价模式</div>
+                    <div class="quick-q" onclick="quickQuestion(this)">花火平台合作流程</div>
+                    <div class="quick-q" onclick="quickQuestion(this)">如何优化投放效果</div>
+                    <div class="quick-q" onclick="quickQuestion(this)">开户需要什么材料</div>
+                    <div class="quick-q" onclick="quickQuestion(this)">花火和三连的区别</div>
+                    <div class="quick-q" onclick="quickQuestion(this)">如何筛选UP主</div>
+                    <div class="quick-q" onclick="quickQuestion(this)">B站投放预算多少</div>
+                    <div class="quick-q" onclick="quickQuestion(this)">如何计算ROI</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 课程数据
+        var courseData = {
+            'c1-1': {
+                title: 'B站商业化生态认知',
+                content: '<strong>学习目标：</strong><br>• 理解B站用户画像、内容生态、商业化模式<br>• 掌握B站与其他平台的核心差异<br>• 了解B站商业化产品矩阵<br><br><strong>核心内容：</strong><br>1. B站用户群体特征分析（Z世代占比80%+，高消费力）<br>2. B站内容分区与垂类特点<br>3. 商业化产品矩阵（三连、花火、品牌专区）<br>4. B站与其他平台差异对比'
+            },
+            'c1-2': {
+                title: '三连竞价推广基础入门',
+                content: '<strong>学习目标：</strong><br>• 掌握三连平台基本操作流程<br>• 了解竞价机制与扣费模式<br>• 能够独立创建标准信息流广告<br><br><strong>核心内容：</strong><br>1. 三连平台入口与账号体系（ad.bilibili.com）<br>2. 广告形式：信息流、品牌专区、弹幕广告<br>3. 竞价模式：CPC、CPM、oCPX<br>4. 开户流程与资质准备<br>5. 新建广告计划基础设置'
+            },
+            'c1-3': {
+                title: '花火平台基础入门',
+                content: '<strong>学习目标：</strong><br>• 熟悉花火平台功能与定位<br>• 了解内容合作基本流程<br>• 能够独立填写花火任务需求单<br><br><strong>核心内容：</strong><br>1. 花火平台定位（huahuo.bilibili.com）<br>2. 内容合作模式：植入、定制、冠名、联动<br>3. 花火任务发布流程<br>4. UP主筛选与评估'
+            },
+            'c1-4': {
+                title: '广告法合规与内容规范',
+                content: '<strong>学习目标：</strong><br>• 掌握广告法基础要求<br>• 熟悉B站平台内容规范红线<br>• 能够识别和规避常见违规风险<br><br><strong>核心内容：</strong><br>1. 广告法基础要求（禁止虚假宣传、绝对化用语）<br>2. B站平台内容规范红线<br>3. 特殊行业广告资质要求<br>4. 审核驳回原因及应对策略'
+            },
+            'c2-1': {
+                title: '三连竞价投放策略与优化',
+                content: '<strong>学习目标：</strong><br>• 掌握投放策略制定方法论<br>• 能够根据数据优化投放效果<br>• 独立完成定向投放方案设计<br><br><strong>核心内容：</strong><br>1. 投放策略制定（STP模型）<br>2. 人群定向策略<br>3. 出价策略选择（CPC/CPM/oCPX）<br>4. 创意优化技巧<br>5. A/B测试方法'
+            },
+            'c2-2': {
+                title: '花火平台深度运营',
+                content: '<strong>学习目标：</strong><br>• 掌握花火平台高级功能<br>• 能够评估和筛选合适的UP主<br>• 独立完成花火合作项目全流程<br><br><strong>核心内容：</strong><br>1. 数据看板解读<br>2. UP主筛选与评估维度<br>3. 合作方案设计与报价策略<br>4. 效果评估与复盘'
+            },
+            'c2-3': {
+                title: '数据驱动营销分析',
+                content: '<strong>学习目标：</strong><br>• 建立数据分析思维<br>• 掌握核心指标的定义和计算<br>• 能够制作数据驱动的分析报告<br><br><strong>核心内容：</strong><br>1. 营销漏斗模型与关键指标<br>2. 三连后台数据看板解读<br>3. 花火合作效果数据追踪<br>4. ROI计算方法'
+            },
+            'c2-4': {
+                title: '投放案例拆解与复盘',
+                content: '<strong>学习目标：</strong><br>• 通过真实案例学习投放思路<br>• 掌握完整的复盘方法论<br>• 能够将经验转化为可复用的方法<br><br><strong>核心内容：</strong><br>1. 成功案例特征分析<br>2. 失败案例问题诊断<br>3. 不同行业投放策略差异<br>4. 复盘模板与应用'
+            },
+            'c3-1': {
+                title: '整合营销策略制定',
+                content: '<strong>学习目标：</strong><br>• 能够独立制定整合营销方案<br>• 统筹三连、花火、起飞等多产品协同<br>• 具备品牌Campaign全链路规划能力<br><br><strong>核心内容：</strong><br>1. 整合营销理论框架<br>2. 三连+花火+起飞协同打法<br>3. 品牌Campaign全链路规划<br>4. 预算分配与优先级策略'
+            },
+            'c3-2': {
+                title: '团队管理与协作机制',
+                content: '<strong>学习目标：</strong><br>• 掌握投放团队架构设计<br>• 能够建立标准化工作流程<br>• 具备新人带教的能力<br><br><strong>核心内容：</strong><br>1. 团队架构设计<br>2. SOP标准化流程<br>3. 协作工具推荐<br>4. 绩效考核体系'
+            },
+            'c3-3': {
+                title: '行业前沿与趋势洞察',
+                content: '<strong>学习目标：</strong><br>• 保持对行业动态的敏感度<br>• 掌握平台政策变化的解读能力<br>• 能够为团队提供趋势性建议<br><br><strong>核心内容：</strong><br>1. B站商业化产品更新<br>2. 行业营销趋势<br>3. 竞品策略研究<br>4. 新兴内容形式'
+            }
+        };
+
+        // 问答数据库
+        var qaDatabase = [
+            {
+                keywords: ['竞价', '三连', '起飞', '扣费', 'CPC', 'CPM', 'oCPX'],
+                question: '三连平台的竞价模式是什么？',
+                answer: '<strong>三连平台主要有以下几种竞价模式：</strong><br><br><strong>1. CPC（点击付费）</strong><br>按实际点击次数收费，适合测试期和追求点击量的场景。<br><br><strong>2. CPM（千次曝光付费）</strong><br>按千次展示收费，适合品牌曝光和达人粉丝投放。<br><br><strong>3. oCPX（智能优化）</strong><br>系统根据转化目标自动优化，支持浅层转化（点击/观看）和深层转化（表单/付费）。<br><br><strong>💡 新手建议：</strong>从CPC模式开始测试，等数据稳定后再尝试oCPX智能优化。'
+            },
+            {
+                keywords: ['花火', 'UP主', '合作', '流程', '任务'],
+                question: '花火平台的合作流程有哪些？',
+                answer: '<strong>花火平台的完整合作流程如下：</strong><br><br><strong>1. 创建任务</strong><br>在花火平台填写合作需求，包括品牌信息、产品特点、合作形式等。<br><br><strong>2. 匹配合适UP主</strong><br>平台会根据需求智能匹配，也可以主动搜索和筛选UP主。<br><br><strong>3. 沟通确认方案</strong><br>与UP主沟通具体内容方向、报价、档期等。<br><br><strong>4. 确认合作并签约</strong><br>双方确认后签署合作协议（平台提供标准合同）。<br><br><strong>5. 执行投放</strong><br>UP主按照约定时间发布内容。<br><br><strong>6. 验收与付款</strong><br>内容发布后，品牌主确认验收，平台托管资金自动打款给UP主。'
+            },
+            {
+                keywords: ['优化', '效果', 'ROI', '转化', '提升'],
+                question: '如何优化广告投放效果？',
+                answer: '<strong>提升广告投放效果的核心方法：</strong><br><br><strong>1. 人群定向优化</strong><br>• 先做小范围精准测试<br>• 积累转化人群后扩展相似人群<br>• 利用再营销触达高意向用户<br><br><strong>2. 创意素材优化</strong><br>• 测试多套素材，找到点击率高的方向<br>• 保持素材新鲜度，定期更新<br>• 标题突出卖点，引发用户兴趣<br><br><strong>3. 出价策略优化</strong><br>• 测试期适当提高出价获取曝光<br>• 效果稳定后逐步降低出价<br>• 利用分时出价，在高效时段提高出价<br><br><strong>4. 落地页优化</strong><br>• 落地页与广告创意保持一致<br>• 优化页面加载速度<br>• 简化转化流程，降低用户决策成本'
+            },
+            {
+                keywords: ['开户', '资质', '材料', '准备'],
+                question: '三连平台开户需要准备什么材料？',
+                answer: '<strong>三连平台开户需要准备以下材料：</strong><br><br><strong>基础材料</strong><br>• 营业执照（需在有效期内）<br>• 法人身份证正反面<br>• 对公银行账户信息<br><br><strong>行业特殊资质（根据行业）</strong><br>• 游戏行业：游戏版号、ICP许可证<br>• 教育行业：办学许可证、教育部批文<br>• 金融行业：金融许可证、备案证明<br>• 医疗行业：医疗广告审查证明<br>• 食品行业：食品经营许可证<br><br><strong>其他可能需要的</strong><br>• 商标注册证（如投放品牌内容）<br>• 授权书（如代理其他品牌）<br>• 特殊产品资质（如3C认证等）<br><br>💡 建议先咨询平台客服确认具体要求。'
+            },
+            {
+                keywords: ['花火', '三连', '区别', '不同', '对比'],
+                question: '花火平台和竞价推广有什么区别？',
+                answer: '<strong>花火平台和竞价推广的主要区别：</strong><br><br>| 对比项 | 花火平台 | 三连竞价推广 |<br>|--------|----------|--------------|<br>| <strong>定位</strong> | 内容营销平台 | 效果广告平台 |<br>| <strong>核心</strong> | UP主商业合作 | 付费广告投放 |<br>| <strong>内容</strong> | UP主原创视频 | 平台广告位 |<br>| <strong>计费</strong> | 按项目打包报价 | 按点击/展示计费 |<br>| <strong>适合</strong> | 品牌种草、口碑建设 | 效果转化、精准获客 |<br>| <strong>周期</strong> | 单次合作 | 持续投放 |<br><br><strong>💡 简单理解：</strong>花火=找UP主"恰饭"做内容，竞价=买广告位打广告。两者可以结合使用，用花火种草，再用竞价收割。'
+            },
+            {
+                keywords: ['UP主', '筛选', '选择', 'KOL', '合作'],
+                question: '如何筛选合适的UP主进行合作？',
+                answer: '<strong>筛选合适UP主的关键维度：</strong><br><br><strong>1. 基础数据</strong><br>• 粉丝数：不是越高越好，适合最重要<br>• 平均播放量：反映内容稳定性<br>• 互动率（点赞+评论+投币/播放）：衡量粉丝活跃度<br><br><strong>2. 增长趋势</strong><br>• 涨粉速度：持续增长说明内容有吸引力<br>• 近期数据：查看最近3-6个月数据<br><br><strong>3. 内容质量</strong><br>• 内容调性：是否与品牌匹配<br>• 制作水平：画面、剪辑、配音等<br>• 粉丝画像：性别、年龄、地域分布<br><br><strong>4. 商业数据</strong><br>• 过往合作案例及效果<br>• 商单频率：太高可能影响粉丝信任<br>• 粉丝对广告的接受度<br><br><strong>💡 筛选建议：</strong>优先选择互动率高、数据稳定的UP主；粉丝少但精准的中腰部UP主往往效果更好。'
+            },
+            {
+                keywords: ['预算', '分配', '多少钱', '投入', '成本'],
+                question: 'B站投放需要多少预算？',
+                answer: '<strong>B站投放预算建议（仅供参考）：</strong><br><br><strong>花火平台合作</strong><br>• 单个UP主合作：1万-10万+不等<br>• 素人UP主（1-10万粉）：5000-2万/位<br>• 中腰部UP主（10-100万粉）：2万-10万/位<br>• 头部UP主（100万+粉）：10万+/位<br>• 建议首批合作3-5位UP主测试<br><br><strong>三连竞价推广</strong><br>• 日预算建议：1000-5000元起测<br>• 月预算：根据目标设定，通常3万-50万+<br>• 新账户测试期：建议先投入1-2万积累数据<br><br><strong>整合营销建议</strong><br>• 品牌曝光型：花火60% + 竞价40%<br>• 效果转化型：花火30% + 竞价70%<br>• 新品上市型：预热花火 + 爆发竞价<br><br>预算分配应根据营销目标、行业特点、竞争程度等因素综合考虑。'
+            },
+            {
+                keywords: ['ROI', '计算', '产出', '效果', '回报率'],
+                question: '如何计算广告投放的ROI？',
+                answer: '<strong>ROI（投资回报率）计算方法：</strong><br><br><strong>基础公式</strong><br>ROI = (收入 - 成本) / 成本 × 100%<br><br><strong>举例</strong><br>• 广告投入：10万元<br>• 广告带来收入：30万元<br>• ROI = (30-10)/10 × 100% = 200%<br><br><strong>不同转化目标的ROI计算</strong><br><br><strong>1. 直接转化（电商）</strong><br>ROI = (销售额 × 利润率) / 广告消耗<br><br><strong>2. 表单留资</strong><br>ROI = (线索数 × 线索单价) / 广告消耗<br><br><strong>3. App下载/注册</strong><br>ROI = (注册用户 × 用户价值) / 广告消耗<br><br><strong>⚠️ 注意事项</strong><br>• 要考虑转化周期（部分转化需要时间）<br>• 品牌广告的ROI计算较复杂，要综合考虑品牌价值<br>• 不同渠道的ROI不能简单对比，要考虑用户质量'
+            }
+        ];
+
+        // 显示课程详情
+        function showCourse(courseId) {
+            var data = courseData[courseId];
+            if (!data) return;
+            alert(data.title + '\n\n' + data.content.replace(/<[^>]+>/g, ''));
+        }
+
+        // 获取答案
+        function getAnswer() {
+            var questionInput = document.getElementById('questionInput');
+            var question = questionInput.value.trim();
+            
+            if (!question) {
+                alert('请输入问题');
+                return;
+            }
+
+            // 禁用按钮
+            var btn = document.querySelector('.qa-btn');
+            btn.disabled = true;
+            btn.textContent = '正在分析问题...';
+
+            // 模拟AI处理
+            setTimeout(function() {
+                // 关键词匹配
+                var bestMatch = null;
+                var maxScore = 0;
+                
+                for (var i = 0; i < qaDatabase.length; i++) {
+                    var qa = qaDatabase[i];
+                    var score = 0;
+                    for (var j = 0; j < qa.keywords.length; j++) {
+                        if (question.indexOf(qa.keywords[j]) !== -1) {
+                            score += qa.keywords[j].length;
+                        }
+                    }
+                    if (score > maxScore) {
+                        maxScore = score;
+                        bestMatch = qa;
+                    }
+                }
+
+                var answer;
+                if (bestMatch && maxScore > 0) {
+                    answer = bestMatch.answer;
+                } else {
+                    answer = '关于"' + question + '"这个问题，让我来为您解答：<br><br>这是一个涉及B站商业化运营的专业问题。根据培训课程体系的内容，这个问题可能涉及到以下方面：<br><br>1. <strong>课程相关</strong>：建议您查看相关课程<br>2. <strong>实操建议</strong>：可以参考课程中的案例分析<br>3. <strong>深入学习</strong>：如有需要，可以安排一对一答疑<br><br>如果您有更具体的问题，欢迎继续提问！';
+                }
+
+                // 显示答案
+                document.getElementById('qaQuestion').textContent = 'Q: ' + question;
+                document.getElementById('qaAnswer').innerHTML = 'A: ' + answer;
+                document.getElementById('qaResult').classList.add('show');
+                
+                // 清空输入框
+                questionInput.value = '';
+                
+                // 恢复按钮
+                btn.disabled = false;
+                btn.textContent = '获取答案';
+                
+                // 滚动到答案
+                document.getElementById('qaResult').scrollIntoView({behavior: 'smooth'});
+            }, 800);
+        }
+
+        // 快速提问
+        function quickQuestion(element) {
+            var question = element.textContent;
+            document.getElementById('questionInput').value = question;
+            getAnswer();
+        }
+
+        // 回车提交
+        document.getElementById('questionInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                getAnswer();
+            }
+        });
+    </script>
+</body>
+</html>
